@@ -26,7 +26,7 @@ namespace testAPI.Controllers
         }
 
         /// <summary>
-        /// 個股交易歷史資料寫入資料庫
+        /// 個股交易歷史資料寫入資料庫(單一個股)
         /// </summary>
         /// <param name="stock_Symbol"></param>
         /// <returns></returns>
@@ -35,6 +35,13 @@ namespace testAPI.Controllers
         public DataProcessing.reportList insertData_C(int stock_Symbol)
         {
             return new DataProcessing().insertData_M(stock_Symbol);
+        }
+
+        [HttpPost]
+        [ActionName("insertData2")]
+        public DataProcessing.reportList insertData2_C()
+        {
+            return new DataProcessing().insertData2_M();
         }
         #endregion
     }
