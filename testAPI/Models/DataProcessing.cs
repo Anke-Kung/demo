@@ -60,9 +60,23 @@ namespace testAPI.Models
         };//檢查資料庫有無資料
 
         /// <summary>
+        /// 取得個股交易資料
+        /// </summary>
+        /// <param name="stock_Symbol">股票代號</param>
+        /// <param name="year">交易年份(民國)</param>
+        /// <param name="month">交易月份</param>
+        /// <returns></returns>
+        public DataTable getData_M(int stock_Symbol,string year, string month)
+        {
+            return new DB().getDB("SELECT * FROM [Stock].[dbo].[Daily_Trading] " +
+                                  " WHERE Stock_Symbol = '" + stock_Symbol + "' AND Transaction_Date LIKE '%" + year + "/" + month.PadLeft(2, '0') + "/%'" +
+                                  " ORDER BY Transaction_Date");
+        }
+
+        /// <summary>
         /// 個股交易歷史資料寫入資料庫(單一個股)
         /// </summary>
-        /// <param name="stock_Symbol"></param>
+        /// <param name="stock_Symbol">股票代號</param>
         /// <returns></returns>
         public reportList insertData_M(int stock_Symbol)
         {
@@ -93,7 +107,7 @@ namespace testAPI.Models
         }
 
         /// <summary>
-        /// 個股交易歷史資料寫入資料庫
+        /// 個股交易歷史資料寫入資料庫(處理多個資料)
         /// </summary>
         /// <returns></returns>
         public reportList insertData2_M()
